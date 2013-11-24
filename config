@@ -1,0 +1,56 @@
+[advice]
+	statusHints = false
+[alias]
+	a = add
+	ai = add --interactive
+	ap = add --patch
+	br = branch
+	ca = commit --amend
+	ci = commit -v
+	cip = commit --patch -v
+	cipa = commit --patch -v --amend
+	co = checkout
+	cp = cherry-pick
+	cv = commit -v
+	d = diff
+	db = diff --ignore-space-change
+	dc = log --patch --max-count=1
+	ds = diff --staged
+	ff = merge --ff --ff-only
+	g = grep
+	l = log
+	last = !git --no-pager log --oneline --max-count=5
+	lf = log --follow
+	ll = log --oneline
+	llr = log --oneline --reverse
+	lr = log --reverse
+	m = merge
+	new =  log ORIG_HEAD..HEAD
+	p = pull --ff-only
+	r = rebase
+	ra = rebase --abort
+	rc = rebase --continue
+	ri = rebase --interactive
+	s = status --short
+	sa = stash apply
+	sp = stash save --patch
+	unstash = stash pop
+[color]
+	pager = false
+	ui = auto
+[core]
+	pager = less -F -X
+[diff]
+	mnemonicprefix = true
+	renames = true
+[interactive]
+	singlekey = true
+[merge]
+	tool = kdiff3
+[push]
+	default = current
+[rebase]
+	autosquash = true
+[user]
+	email = benoit.pierre@gmail.com
+	name = Benoit Pierre

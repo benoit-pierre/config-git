@@ -1,0 +1,43 @@
+#! /bin/zsh
+
+err()
+{
+  echo 1>&2 "$@"
+}
+
+if ! git is-tree-clean
+then
+  err "tree is not clean!"
+  exit 1
+fi
+
+comp=''
+case "$1" in
+  *.tar.gz|*.tgz)
+    comp=z
+    ;;
+  *.tar.bz2|tbz2)
+    comp=j
+    ;;
+  *.tar.xz|txz)
+    comp=J
+    ;;
+  *.tar)
+    ;;
+  *)
+    err "unsupported tarball type"
+    exit 2
+    ;;
+esac
+
+# Remove tracked files.
+git ls-files -z | xargs -0 rm &&
+# Remove empty trees.
+find -mindepth 1 -type d -name '.git*' -prune -o -empty -printf '%P\0'| xargs -0 --no-run-if-empty rmdir -p --ignore-fail-on-non-empty &&
+# Import archive content.
+tar "x${comp}f" "$1" --strip-components 1 &&
+# Add new files.
+git add --all . &&
+true
+
+# vim: sw=2
