@@ -12,6 +12,7 @@
 	co = checkout
 	cp = cherry-pick
 	cv = commit -v
+	cx = clean -x -d -i
 	d = diff
 	db = diff --ignore-space-change
 	dc = log --patch --max-count=1
@@ -26,6 +27,7 @@
 	lr = log --reverse
 	m = merge
 	new =  log ORIG_HEAD..HEAD
+	outgoing = log --oneline --reverse @{u}..
 	p = pull --ff-only
 	r = rebase
 	ra = rebase --abort
@@ -34,6 +36,10 @@
 	s = status --short
 	sa = stash apply
 	sp = stash save --patch
+	st = status --short --untracked-files=no
+	sub = submodule
+	subf = submodule foreach
+	subfg = submodule foreach git --no-pager
 	unstash = stash pop
 [color]
 	pager = false
