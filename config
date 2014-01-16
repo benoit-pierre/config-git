@@ -49,6 +49,7 @@
 [diff]
 	mnemonicprefix = true
 	renames = true
+	submodule = log
 [interactive]
 	singlekey = true
 [merge]
@@ -57,6 +58,8 @@
 	default = current
 [rebase]
 	autosquash = true
+[status]
+	submodulesummary = true
 [user]
 	email = benoit.pierre@gmail.com
 	name = Benoit Pierre
