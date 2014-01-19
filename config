@@ -33,10 +33,10 @@
 	ra = rebase --abort
 	rc = rebase --continue
 	ri = rebase --interactive
-	s = status --short
+	s = status --short --branch
 	sa = stash apply
 	sp = stash save --patch
-	st = status --short --untracked-files=no
+	st = status --short --branch --untracked-files=no
 	sub = submodule
 	subf = submodule foreach
 	subfg = submodule foreach git --no-pager
