@@ -9,7 +9,9 @@
 	ci = commit -v
 	cip = commit --patch -v
 	cipa = commit --patch -v --amend
+	cipm = commit --patch -v --message
 	co = checkout
+	cop = checkout --patch
 	cp = cherry-pick
 	cv = commit -v
 	cx = clean -x -d -i
