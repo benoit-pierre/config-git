@@ -53,23 +53,36 @@
 	unstash = stash pop
 	ub = update-branch
 	vs = !vim +GitStatus
+[cherry]
+	abbrev = true
+	verbose = true
 [color]
 	pager = false
 	ui = auto
-[core]
-	pager = less -F -X
 [diff]
 	mnemonicprefix = true
 	renames = true
 	submodule = log
+[format]
+	coverletter = auto
+	inline = true
+	numbered = auto
 [interactive]
 	singlekey = true
+[grep]
+	lineNumber = true
 [merge]
 	tool = kdiff3
 [push]
 	default = current
 [rebase]
 	autosquash = true
+[sendemail]
+	annotate = true
+	confirm = always
+	multiedit = true
+	smtpserver = /usr/bin/msmtp
+	suppresscc = self
 [status]
 	submodulesummary = true
 [user]
