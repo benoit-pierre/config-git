@@ -2,20 +2,6 @@
 
 [ $# -ge 1 ] || exit 1
 
-dir="$1"
-shift
-
-[ -d "$dir" ] || exit 1
-
-export GIT_WORK_TREE="$dir"
-
-if [ -r "$dir/.git" ]
-then
-  dir="$dir/.git"
-fi
-
-export GIT_DIR="$dir"
-
-exec git "$@"
+exec git -C "$@"
 
 # vim: sw=2
