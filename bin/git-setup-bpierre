@@ -1,0 +1,65 @@
+#! /bin/sh
+
+err()
+{
+  echo 1>&2 "$@"
+}
+
+if [ $# -gt 1 ]
+then
+  err "$(basename "$0") only takes one optional argument"
+  exit 1
+fi
+
+branch="$1"
+
+if [ -z "$branch" ]
+then
+  branch="$(git rev-parse --abbrev-ref HEAD)"
+fi
+
+if [ 'HEAD' = "$branch" ]
+then
+  err "No branch, HEAD is detached."
+  exit 1
+fi
+
+case "$branch" in
+  git-svn)
+    remote='git-svn'
+    merge='git-svn'
+    ;;
+  svn/*)
+    remote='git-svn'
+    merge="$branch"
+    ;;
+  */*)
+    remote="${branch%/*}"
+    merge="${branch##*/}"
+    ;;
+  *)
+    remote="$(git config "branch.$branch.remote")"
+    merge="$(git config "branch.$branch.merge")"
+
+    if [ -z "$remote" -o -z "$merge" ]
+    then
+      err "No remote/merge set for branch $branch."
+      exit 1
+    fi
+
+    if [ '.' = "$remote" ]
+    then
+      err "Remote is current repo."
+      exit 1
+    fi
+
+    merge="${merge##*/}"
+  ;;
+esac
+
+git checkout --quiet -b bpierre --no-track &&
+git config branch.bpierre.remote "$remote" &&
+git config branch.bpierre.merge "$merge" &&
+git config branch.bpierre.rebase true &&
+echo "Switched to new branch bpierre set up to track (by rebase) remote branch $merge from $remote."
+
