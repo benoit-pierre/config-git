@@ -6,30 +6,37 @@
 	ap = add --patch
 	br = branch
 	ca = commit --amend
+	cd = -C
 	ci = commit -v
-	cip = commit --patch -v
-	cipa = commit --patch -v --amend
-	cipm = commit --patch -v --message
+	cia = commit -v -a
+	cip = commit -v --patch
+	cipa = commit -v --patch --amend
+	cipm = commit -v --patch --message
 	co = checkout
 	cop = checkout --patch
 	cp = cherry-pick
 	cv = commit -v
 	cx = clean -x -d -i
+	cy = cherry -v --abbrev
 	d = diff
 	db = diff --ignore-space-change
-	dc = log --patch --max-count=1
+	diffstat = diff --stat
 	ds = diff --staged
+	dw = !git --no-pager diff --color-words=\"[^[:space:]]|([[:alnum:].]|UTF_8_GUARD)+\"
 	ff = merge --ff --ff-only
+	fixup = commit -v --patch --fixup
 	g = grep
 	l = log
-	last = !git --no-pager log --oneline --max-count=5
+	last = !git --no-pager log --relative-date --pretty=\"tformat:%C(auto,blue)%>(14,mtrunc)%ar %C(auto,yellow)%h%C(auto,reset) %<($(($(tput cols || echo 80)-23)),trunc)%s\" --max-count=$(($(tput lines || echo 20)/2+1))
 	lf = log --follow
-	ll = log --oneline
-	llr = log --oneline --reverse
+	ll = log --relative-date --pretty='tformat:%C(auto,blue)%>(14,mtrunc)%ar %C(auto,yellow)%h%C(auto,reset) %<(80,trunc)%s'
+	llr = log --relative-date --pretty='tformat:%C(auto,blue)%>(14,mtrunc)%ar %C(auto,yellow)%h%C(auto,reset) %<(80,trunc)%s' --reverse
+	lp = log -p
 	lr = log --reverse
 	m = merge
-	new =  log ORIG_HEAD..HEAD
-	outgoing = log --oneline --reverse @{u}..
+	missing = cherry --verbose --abbrev HEAD
+	new =  log --reverse ORIG_HEAD..HEAD
+	outgoing = log --oneline --reverse @{push}..
 	p = pull --ff-only
 	r = rebase
 	ra = rebase --abort
@@ -38,11 +45,14 @@
 	s = status --short --branch
 	sa = stash apply
 	sp = stash save --patch
+	ss = stash show --patch
 	st = status --short --branch --untracked-files=no
 	sub = submodule
 	subf = submodule foreach
 	subfg = submodule foreach git --no-pager
 	unstash = stash pop
+	ub = update-branch
+	vs = !vim +GitStatus
 [color]
 	pager = false
 	ui = auto
