@@ -31,7 +31,7 @@ case "$1" in
 esac
 
 # Remove tracked files.
-git ls-files -z | xargs -0 rm &&
+git ls-files -z | xargs -0 --no-run-if-empty rm &&
 # Remove empty trees.
 find -mindepth 1 -type d -name '.git*' -prune -o -empty -printf '%P\0'| xargs -0 --no-run-if-empty rmdir -p --ignore-fail-on-non-empty &&
 # Import archive content.
