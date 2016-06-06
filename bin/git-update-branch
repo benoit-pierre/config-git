@@ -1,0 +1,74 @@
+#!/bin/sh
+
+err()
+{
+  echo 1>&2 "$@"
+}
+
+if [ $# -ne 0 ]
+then
+  err "$(basename "$0") takes no arguments"
+  exit 1
+fi
+
+branch="$(git rev-parse --abbrev-ref HEAD)"
+
+if [ 'HEAD' = "$branch" ]
+then
+  err "No branch, HEAD is detached."
+  exit 1
+fi
+
+remote="$(git config "branch.$branch.remote")"
+merge="$(git config "branch.$branch.merge")"
+
+if [ -z "$remote" -o -z "$merge" ]
+then
+  err "No remote/merge set for branch $branch."
+  exit 1
+fi
+
+if [ '.' = "$remote" ]
+then
+  err "Remote is current repo."
+  exit 1
+fi
+
+if [ 'git-svn' = "$remote" ]
+then
+  upstream="$merge"
+  git svn fetch || exit $?
+else
+  upstream="$remote/$merge"
+  git fetch --tags || exit $?
+fi
+
+if [ 0 -eq "$(git rev-list --count "${branch}..${upstream}")" ]
+then
+  echo "Current branch $branch is up to date."
+  exit 0
+fi
+
+logfile="$(mktemp -p "${TMPDIR:-/tmp}" git.XXXXXXXXXX)"
+git log --reverse "${branch}..${upstream}" >"$logfile"
+showlog="vimpager '$logfile' '+set ft=changelog'"
+if xset q >/dev/null 2>&1
+then
+  showlog="{ $showlog -g; rm -f '$logfile'; } &"
+else
+  showlog="$showlog; rm -f '$logfile'"
+fi
+eval "$showlog"
+
+if [ 'git-svn' = "$remote" ]
+then
+  if [ true = "$(git config --get --bool "branch.${branch}.rebase")" ]
+  then
+    git rebase "$upstream"
+  else
+    git merge "$upstream"
+  fi
+else
+  git pull
+fi
+
