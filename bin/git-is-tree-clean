@@ -1,5 +1,11 @@
 #!/bin/sh
 
+if [ '' = "`git branch`" ]
+then
+  # Empty repository.
+  exit 0
+fi
+
 if ! git diff-index --quiet HEAD
 then
   exit 1
