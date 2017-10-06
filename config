@@ -17,10 +17,11 @@
 	cp = cherry-pick
 	cx = clean -x -d -i
 	cy = cherry -v --abbrev
-	d = diff
-	db = diff --ignore-space-change
+	d = diff --stat --patch
+	db = diff --stat --patch --ignore-space-change
 	diffstat = diff --stat
-	ds = diff --staged
+	dp = diff --stat --patch '@{push}'
+	ds = diff --stat --patch --staged
 	dw = !git --no-pager diff --color-words=\"[^[:space:]]|([[:alnum:].]|UTF_8_GUARD)+\"
 	ff = merge --ff --ff-only
 	fixup = commit -v --untracked-files=no --patch --fixup
@@ -43,6 +44,7 @@
 	ri = rebase --interactive
 	s = status --short --branch
 	sa = stash apply
+	sh = show --stat --patch
 	sp = stash save --patch
 	ss = stash show --patch
 	st = status --short --branch --untracked-files=no
