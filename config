@@ -27,6 +27,7 @@
 	fixup = commit -v --untracked-files=no --patch --fixup
 	g = grep
 	l = log
+	lbr = branch --sort=committerdate
 	last = !git --no-pager log --relative-date --pretty=\"tformat:%C(auto,blue)%>(14,mtrunc)%ar %C(auto,yellow)%h%C(auto,reset) %<($(($(tput cols || echo 80)-25)),trunc)%s\" --max-count=$(($(tput lines || echo 20)/2+1))
 	lf = log --follow
 	ll = log --relative-date --pretty='tformat:%C(auto,blue)%>(14,mtrunc)%ar %C(auto,yellow)%h%C(auto,reset) %<(80,trunc)%s'
