@@ -16,6 +16,7 @@
 	cop = checkout --patch
 	cp = cherry-pick
 	cx = clean -x -d -i
+	cxpy = clean -x -d -i '*.pyc' '__pycache__/' '**/__pycache__/' '*.egg-info/' '.cache/' '.eggs/' '.pytest_cache/' '.tox/' 'build/' 'dist/'
 	cy = cherry -v --abbrev
 	d = diff --stat --patch
 	db = diff --stat --patch --ignore-space-change
