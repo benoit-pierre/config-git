@@ -60,8 +60,10 @@
 	abbrev = true
 	verbose = true
 [color]
-	pager = false
+	pager = true
 	ui = auto
+[core]
+	pager = diff-so-fancy | /usr/bin/less --tabs=4 -RFX
 [diff]
 	mnemonicprefix = true
 	renames = true
@@ -72,6 +74,7 @@
 	numbered = auto
 [interactive]
 	singlekey = true
+	diffFilter = /usr/share/git/diff-highlight/diff-highlight
 [grep]
 	lineNumber = true
 [merge]
